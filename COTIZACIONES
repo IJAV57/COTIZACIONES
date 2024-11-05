@@ -1,1 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Plomería</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Bienvenido a Nuestra Tienda de Plomería</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#tubos">Tubos</a></li>
+            <li><a href="#valvulas">Válvulas</a></li>
+            <li><a href="#conexiones">Conexiones</a></li>
+            <li><a href="#articulos">Artículos para Baño</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="tubos">
+            <h2>Tubos</h2>
+            <!-- Detalles de productos -->
+        </section>
+        <section id="valvulas">
+            <h2>Válvulas</h2>
+            <!-- Detalles de productos -->
+        </section>
+        <section id="conexiones">
+            <h2>Conexiones</h2>
+            <!-- Detalles de productos -->
+        </section>
+        <section id="articulos">
+            <h2>Artículos para Baño</h2>
+            <!-- Detalles de productos -->
+        </section>
+    </main>
+    <footer>
+        <p>Contacto: info@tiendadeplomeria.com</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
 
