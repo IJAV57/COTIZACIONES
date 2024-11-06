@@ -2,43 +2,51 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda de Plomería</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Cotización</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
 </head>
 <body>
-    <header>
-        <h1>Bienvenido a Nuestra Tienda de Plomería</h1>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="#tubos">Tubos</a></li>
-            <li><a href="#valvulas">Válvulas</a></li>
-            <li><a href="#conexiones">Conexiones</a></li>
-            <li><a href="#articulos">Artículos para Baño</a></li>
-        </ul>
-    </nav>
-    <main>
-        <section id="tubos">
-            <h2>Tubos</h2>
-            <!-- Detalles de productos -->
-        </section>
-        <section id="valvulas">
-            <h2>Válvulas</h2>
-            <!-- Detalles de productos -->
-        </section>
-        <section id="conexiones">
-            <h2>Conexiones</h2>
-            <!-- Detalles de productos -->
-        </section>
-        <section id="articulos">
-            <h2>Artículos para Baño</h2>
-            <!-- Detalles de productos -->
-        </section>
-    </main>
-    <footer>
-        <p>Contacto: info@tiendadeplomeria.com</p>
-    </footer>
-    <script src="script.js"></script>
+    <form id="cotizacionForm">
+        <label for="clienteNo">No. de Cliente:</label>
+        <input type="text" id="clienteNo" pattern="C\d{6}" required>
+        
+        <!-- Campos de cliente que se rellenan automáticamente -->
+        <input type="text" id="clienteNombre" placeholder="Nombre del Cliente" readonly>
+        <input type="text" id="clienteDomicilio" placeholder="Domicilio Fiscal" readonly>
+        
+        <!-- Producto y cantidad -->
+        <label for="producto">Producto:</label>
+        <input type="text" id="producto" required>
+        <input type="text" id="codigoProducto" placeholder="Código" readonly>
+        <input type="number" id="cantidad" placeholder="Cantidad requerida">
+        
+        <!-- Botón para agregar más productos -->
+        <button type="button" onclick="agregarProducto()">Agregar Producto</button>
+        
+        <!-- Botón para generar PDF -->
+        <button type="button" onclick="generarPDF()">Generar PDF</button>
+    </form>
+
+    <script>
+        async function cargarClientes() {
+            const response = await fetch('clientes.json');
+            const clientes = await response.json();
+            // Aquí puedes implementar la lógica de autocompletado
+        }
+
+        async function cargarProductos() {
+            const response = await fetch('productos.json');
+            const productos = await response.json();
+            // Similar a cargarClientes
+        }
+
+        function generarPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            doc.text("Cotización", 10, 10);
+            // Agregar contenido de la cotización
+            doc.save("cotización.pdf");
+        }
+    </script>
 </body>
 </html>
