@@ -28,25 +28,42 @@
     </form>
 
     <script>
-        async function cargarClientes() {
-            const response = await fetch('clientes.json');
-            const clientes = await response.json();
-            // Aquí puedes implementar la lógica de autocompletado
-        }
+        let clientes = []; // Variable global para almacenar los datos de clientes
+        // Función para cargar los datos de clientes desde clientes.json
+async function cargarClientes() {
+    const response = await fetch('clientes.json');
+    clientes = await response.json();
+}
 
-        async function cargarProductos() {
-            const response = await fetch('productos.json');
-            const productos = await response.json();
-            // Similar a cargarClientes
+// Llama a cargarClientes al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+    cargarClientes();
+    
+    // Autocompletado al ingresar el número de cliente
+    const clienteNoInput = document.getElementById('clienteNo');
+    clienteNoInput.addEventListener('input', function () {
+        const clienteNo = clienteNoInput.value;
+        
+        // Buscar el cliente que coincida con el número de cliente ingresado
+        const cliente = clientes.find(c => c.NumeroCliente === clienteNo);
+        
+        if (cliente) {
+            // Si el cliente existe, rellenamos los campos correspondientes
+            document.getElementById('clienteNombre').value = cliente.Nombre;
+            document.getElementById('clienteDomicilio').value = cliente.DomicilioFiscal;
+            document.getElementById('clienteRFC').value = cliente.RFC;
+            document.getElementById('clienteCondicionesPago').value = cliente.CondicionesPago;
+            document.getElementById('clienteFormaPago').value = cliente.FormaPago;
+        } else {
+            // Si no se encuentra el cliente, limpiar los campos
+            document.getElementById('clienteNombre').value = "";
+            document.getElementById('clienteDomicilio').value = "";
+            document.getElementById('clienteRFC').value = "";
+            document.getElementById('clienteCondicionesPago').value = "";
+            document.getElementById('clienteFormaPago').value = "";
         }
-
-        function generarPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            doc.text("Cotización", 10, 10);
-            // Agregar contenido de la cotización
-            doc.save("cotización.pdf");
-        }
+    });
+});
     </script>
 </body>
 </html>
