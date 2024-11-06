@@ -13,6 +13,8 @@
         <!-- Campos de cliente que se rellenan automáticamente -->
         <input type="text" id="clienteNombre" placeholder="Nombre del Cliente" readonly>
         <input type="text" id="clienteDomicilio" placeholder="Domicilio Fiscal" readonly>
+        <input type="text" id="clienteRFC" placeholder="RFC" readonly>
+        <input type="text" id="clienteCondicionesPago" placeholder="CondicionesPago" readonly>
         
         <!-- Producto y cantidad -->
         <label for="producto">Producto:</label>
@@ -30,40 +32,40 @@
     <script>
         let clientes = []; // Variable global para almacenar los datos de clientes
         // Función para cargar los datos de clientes desde clientes.json
-async function cargarClientes() {
-    const response = await fetch('clientes.json');
-    clientes = await response.json();
-}
+    async function cargarClientes() {
+        const response = await fetch('clientes.json');
+        clientes = await response.json();
+    }
 
-// Llama a cargarClientes al cargar la página
-document.addEventListener('DOMContentLoaded', () => {
-    cargarClientes();
+    // Llama a cargarClientes al cargar la página
+    document.addEventListener('DOMContentLoaded', () => {
+        cargarClientes();
     
-    // Autocompletado al ingresar el número de cliente
-    const clienteNoInput = document.getElementById('clienteNo');
-    clienteNoInput.addEventListener('input', function () {
-        const clienteNo = clienteNoInput.value;
+        // Autocompletado al ingresar el número de cliente
+        const clienteNoInput = document.getElementById('clienteNo');
+        clienteNoInput.addEventListener('input', function () {
+            const clienteNo = clienteNoInput.value;
         
-        // Buscar el cliente que coincida con el número de cliente ingresado
-        const cliente = clientes.find(c => c.NumeroCliente === clienteNo);
+            // Buscar el cliente que coincida con el número de cliente ingresado
+            const cliente = clientes.find(c => c.NumeroCliente === clienteNo);
         
-        if (cliente) {
-            // Si el cliente existe, rellenamos los campos correspondientes
-            document.getElementById('clienteNombre').value = cliente.Nombre;
-            document.getElementById('clienteDomicilio').value = cliente.DomicilioFiscal;
-            document.getElementById('clienteRFC').value = cliente.RFC;
-            document.getElementById('clienteCondicionesPago').value = cliente.CondicionesPago;
-            document.getElementById('clienteFormaPago').value = cliente.FormaPago;
-        } else {
-            // Si no se encuentra el cliente, limpiar los campos
-            document.getElementById('clienteNombre').value = "";
-            document.getElementById('clienteDomicilio').value = "";
-            document.getElementById('clienteRFC').value = "";
-            document.getElementById('clienteCondicionesPago').value = "";
-            document.getElementById('clienteFormaPago').value = "";
-        }
+            if (cliente) {
+                // Si el cliente existe, rellenamos los campos correspondientes
+                document.getElementById('clienteNombre').value = cliente.Nombre;
+                document.getElementById('clienteDomicilio').value = cliente.DomicilioFiscal;
+                document.getElementById('clienteRFC').value = cliente.RFC;
+                document.getElementById('clienteCondicionesPago').value = cliente.CondicionesPago;
+                document.getElementById('clienteFormaPago').value = cliente.FormaPago;
+            } else {
+                // Si no se encuentra el cliente, limpiar los campos
+                document.getElementById('clienteNombre').value = "";
+                document.getElementById('clienteDomicilio').value = "";
+                document.getElementById('clienteRFC').value = "";
+                document.getElementById('clienteCondicionesPago').value = "";
+                document.getElementById('clienteFormaPago').value = "";
+            }
+        });
     });
-});
     </script>
 </body>
 </html>
